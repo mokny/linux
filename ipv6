@@ -1,11 +1,29 @@
 #!/usr/bin/env bash
 ip addr show dev eth0 | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | sed -n 1p
 
+# Check if command is available
+is_command() {
+    # Checks to see if the given command (passed as a string argument) exists on the system.
+    # The function returns 0 (success) if the command exists, and 1 if it doesn't.
+    local check_command="$1"
 
-#Install Crontab
+    command -v "${check_command}" >/dev/null 2>&1
+}
 
-command="echo asdpppasd"
-job="* * * * 6 $command"
-cat <(fgrep -i -v "$command" <(crontab -l)) <(echo "$job") | crontab -
+# Cronjob
+install_cronjob() {
+  # install_cronjob "script.sh" "* * * * 6"
+  command=$1
+  interval=$2
+  job="$interval $command"
+  cat <(fgrep -i -v "$command" <(crontab -l)) <(echo "$job") | crontab -
+
+}
+
+if is_command apt-get ; then
+  echo "We are on Debian"
+fi
+
+
 
 echo "Done."
