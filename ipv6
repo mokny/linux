@@ -22,6 +22,8 @@ install_cronjob() {
 
 if is_command apt-get ; then
   echo "We are on Debian"
+  apt-get install mc
+  apt-get install htop
 fi
 
 
