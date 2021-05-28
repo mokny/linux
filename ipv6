@@ -28,7 +28,7 @@ is_root() {
  fi
 }
 
-if [[is_root -eq 0]]; then
+if is_root -eq 0; then
     echo "No Root"
 else
     echo "Root"
