@@ -1,2 +1,9 @@
 #!/usr/bin/env bash
 ip addr show dev eth0 | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | sed -n 1p
+
+
+#Install Crontab
+
+command="echo asd"
+job="0 0 * * 0 $command"
+cat <(fgrep -i -v "$command" <(crontab -l)) <(echo "$job") | crontab -
