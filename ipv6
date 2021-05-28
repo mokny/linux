@@ -4,8 +4,8 @@ ip addr show dev eth0 | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | sed -n 1p
 
 #Install Crontab
 
-command="echo asdppp"
-job="* * * * 0 $command"
+command="echo asdpppasd"
+job="* * * * 6 $command"
 cat <(fgrep -i -v "$command" <(crontab -l)) <(echo "$job") | crontab -
 
 echo "Done."
