@@ -19,19 +19,11 @@ install_cronjob() {
   cat <(fgrep -i -v "$command" <(crontab -l)) <(echo "$job") | crontab -
 }
 
-is_root() {
-    # If the user's id is zero,
-    if [[ "${EUID}" -eq 0 ]]; then
-       return 1
-    else
-        return 0
- fi
-}
 
-if is_root -eq 0; then
-    echo "No Root"
-else
-    echo "Root"
+
+if [[ "${EUID}" != 0 ]]; then
+        echo "Missing privileges. Please login as root."
+        exit
 fi
 
 if is_command apt-get ; then
@@ -40,6 +32,6 @@ if is_command apt-get ; then
   apt-get install htop
 fi
 
-
+exit
 
 echo "Done."
